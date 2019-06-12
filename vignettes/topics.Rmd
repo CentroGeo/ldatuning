@@ -58,6 +58,7 @@ result <- FindTopicsNumber(
   method = "Gibbs",
   control = list(seed = 77),
   mc.cores = 2L,
+  models = TRUE,
   verbose = TRUE
 )
 ```
@@ -65,7 +66,7 @@ result <- FindTopicsNumber(
 Result is a number of topics and corresponding values of metrics
 
 ```{r, echo=FALSE}
-knitr::kable(result)
+knitr::kable(result["result"])
 ```
 
 Simple approach in analyze of metrics is to find extremum, more complete description is in corresponding papers:
@@ -81,7 +82,7 @@ Simple approach in analyze of metrics is to find extremum, more complete descrip
 Support function `FindTopicsNumber_plot` can be used for easy analyze of the results
 
 ```{r, fig.width=6, fig.height=3, results="hide"}
-FindTopicsNumber_plot(result)
+FindTopicsNumber_plot(result["result"])
 ```
 
 Results calculated on the whole dataset (about 10 hours on quad-core computer) look like

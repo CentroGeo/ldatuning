@@ -26,12 +26,14 @@
 #'   NA, which triggers auto-detection of number of cores on the local machine.
 #' @param verbose If false (default), supress all warnings and additional
 #'   information.
+#' @param models If True (dafault), return the list of fitted LDA models (topicmodels LDA objects)
 #' @param libpath Path to R packages (use only if your R installation can't find
 #'   'topicmodels' package, [issue #3](https://github.com/nikita-moor/ldatuning/issues/3).
 #'   For example: "C:/Program Files/R/R-2.15.2/library" (Windows),
 #'                "/home/user/R/x86_64-pc-linux-gnu-library/3.2" (Linux)
 #'
-#' @return Data-frame with one or more metrics.  numbers of topics and
+#' @return Named-List, models contains the list of fitted models (or empty if models is False);
+#'   result is a Data-frame with one or more metrics.  numbers of topics and
 #'   corresponding values of metric. Can be directly used by
 #'   \code{\link{FindTopicsNumber_plot}} to draw a plot.
 #'
@@ -50,6 +52,7 @@ FindTopicsNumber <- function(dtm, topics = seq(10, 40, by = 10),
                              metrics = "Griffiths2004",
                              method = "Gibbs", control = list(),
                              mc.cores = NA, verbose = FALSE,
+                             models = TRUE,
                              libpath = NULL) {
   # check parameters
   if (length(topics[topics < 2]) != 0) {
@@ -110,8 +113,9 @@ FindTopicsNumber <- function(dtm, topics = seq(10, 40, by = 10),
       if (verbose) cat(" done.\n")
     }
   }
-
-  return(result)
+  result_list <- list(models = models,
+                     result = result)
+  return(result_list)
 }
 
 #' @keywords internal
