@@ -113,7 +113,7 @@ FindTopicsNumber <- function(dtm, topics = seq(10, 40, by = 10),
       if (verbose) cat(" done.\n")
     }
   }
-  result_list <- list(models = models,
+  result_list <- list(models = unlist(models),
                      result = result)
   return(result_list)
 }
