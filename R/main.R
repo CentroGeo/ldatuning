@@ -79,9 +79,9 @@ FindTopicsNumber <- function(dtm, topics = seq(10, 40, by = 10),
   if (any(class(mc.cores) == "cluster")) {
     cl <- mc.cores
   } else if (isTRUE(class(mc.cores) == "integer")) {
-    cl <- parallel::makeCluster(mc.cores)
+    cl <- parallel::makeForkCluster(mc.cores)
   } else {
-    cl <- parallel::makeCluster(parallel::detectCores())
+    cl <- parallel::makeForkCluster(parallel::detectCores())
   }
   parallel::setDefaultCluster(cl)
   parallel::clusterExport(varlist = c("dtm", "method", "control"),
